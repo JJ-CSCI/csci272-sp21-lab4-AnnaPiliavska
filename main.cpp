@@ -8,9 +8,44 @@ using Catch::Matchers::Equals;
 
 // Fix the following class
 class Complex {
+    int a,b;
+public:
+    Complex(int = 0, int = 0);    
+    int re() const; 
+    int im() const; 
     void operator>>(std::string&) const;
     void operator<<(const std::string&);
 };
+Complex::Complex(int x, int y) : a{x}, b{y} {}
+int Complex::re() const {
+    return a;
+}
+int Complex::im() const {
+    return b;
+}
+void Complex::operator>>(std::string& str) const {
+    str.append(std::to_string(a));
+    if (b >= 0) 
+      str.append("+");
+    str.append(std::to_string(b));
+    str.append("i");
+}
+void Complex::operator<<(const std::string& str) {
+    int x = std::stoi(str);
+    if (str[0] == '-') {
+      int re = str[1] - '0';
+      a = -1 * re; }
+    else 
+      a = str[0] - '0'; 
+    int ipos = str.find("i");
+    int bpos = ipos - 1;
+    int bsignpos = ipos - 2;
+    if (str[bsignpos] == '-') 
+      b = -1 * (str[bpos] - '0');
+    else
+      b = str[bpos] - '0';
+}
+
 
 //------------------------------
 //   DO NOT MODIFY TEST CASES
