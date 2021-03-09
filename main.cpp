@@ -31,7 +31,6 @@ void Complex::operator>>(std::string& str) const {
     str.append("i");
 }
 void Complex::operator<<(const std::string& str) {
-    int x = std::stoi(str);
     if (str[0] == '-') {
       int re = str[1] - '0';
       a = -1 * re; }
